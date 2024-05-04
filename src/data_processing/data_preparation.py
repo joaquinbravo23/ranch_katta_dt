@@ -54,7 +54,7 @@ def preprocess_text(df, text_column):
     return df
 
 # Define custom stopwords and stop words
-stop_words = set(stopwords.words('spanish'))
+stop_words = set(stopwords.words('english'))
 
 df = preprocess_text(df, "tweet")
 
