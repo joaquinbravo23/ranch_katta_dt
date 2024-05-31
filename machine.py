@@ -45,8 +45,12 @@ class GlassMaker:
             new_task.machine = best_machine
             new_task.start_date = best_start_time
             new_task.end_date = best_start_time + duration
+
+            if setup_time != timedelta(0):
+                self.schedules[best_machine].append(ProductSetup(product, setup_time))
+
             self.schedules[best_machine].append(new_task)
-            self.schedules[best_machine].sort(key=lambda task: task.start_date)
+            # self.schedules[best_machine].sort(key=lambda event: event.start_date)
             return self.get_schedule()
         else:
             return "Task cannot be inserted due to a scheduling conflict."
@@ -71,6 +75,6 @@ class GlassMaker:
         schedule_output = []
         for i, machine_schedule in enumerate(self.schedules):
             schedule_output.append(f"Machine {i}:")
-            for task in machine_schedule:
-                schedule_output.append(repr(task))
+            for event in machine_schedule:
+                schedule_output.append(repr(event))
         return '\n'.join(schedule_output)
