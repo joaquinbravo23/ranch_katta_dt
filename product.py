@@ -1,13 +1,15 @@
+from datetime import timedelta
+
 class Product:
-    def __init__(self, output_product_id, input_product_id, output_product_description, 
-                 product_classification, net_weight, weight_unit, cost):
+    def __init__(self, output_product_id: str, input_product_id: str, net_weight: float, weight_unit: str,
+                 cost: float, production_rate: int, duration: int):
         self.output_product_id = output_product_id
         self.input_product_id = input_product_id
-        self.output_product_description = output_product_description
-        self.product_classification = product_classification
         self.net_weight = net_weight
         self.weight_unit = weight_unit
         self.cost = cost
+        self.production_rate = production_rate
+        self.duration = timedelta(minutes=duration)
         self._convert_weight_to_kg_if_necessary()
 
     def _convert_weight_to_kg_if_necessary(self):
@@ -19,9 +21,9 @@ class Product:
     def __str__(self):
         """Return a string representation of the product."""
         return (f"Output Product ID: {self.output_product_id}, Input Product ID: {self.input_product_id}, "
-                f"Output Product Description: {self.output_product_description}, Product Classification: {self.product_classification}, "
-                f"Net Weight: {self.net_weight} {self.weight_unit}, Cost: ${self.cost}")
+                f"Net Weight: {self.net_weight} {self.weight_unit}, Cost: ${self.cost}, "
+                f"Production Rate: {self.production_rate} units/hour, Duration: {self.duration}")
 
 # Example usage:
-product = Product("OP123", "IP456", "High-quality steel bolts", "Hardware", 500, "gr", 250.00)
+product = Product("OP123", "IP456", 500, "gr", 250.00, 100, 40)
 print(product)

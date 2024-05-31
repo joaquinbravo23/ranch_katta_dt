@@ -12,5 +12,5 @@ class ProductSetup:
         if self.start_date == datetime.min:
             return f"Setup(Sku Id: {self.id_sku}, Setup Time: {self.setup_time} hours)"
         else:
-            return (f"Setup(Sku Id: {self.id_sku}, Setup Time: {self.setup_time} hours)",
+            return (f"Setup(Sku Id: {self.id_sku}, Setup Time: {self.setup_time} hours)"
                     f"Start: {self.start_date}, End: {self.end_date})")

@@ -1,10 +1,12 @@
 from typing import List, Optional, Dict, Tuple
 from datetime import datetime, timedelta
 from setup import ProductSetup
+from product import Product
 from task import Task
+from demand import ProductDemand
 
 class GlassMaker:
-    def __init__(self, num_machines: int, setup_times: List[ProductSetup]):
+    def __init__(self, num_machines: int, products : List[Product], demands : List[ProductDemand], setup_times: List[ProductSetup]):
         self.schedules: List[List[Task]] = [[] for _ in range(num_machines)]
         self.setup_times = setup_times
         self.num_machines = num_machines
