@@ -4,15 +4,10 @@ class ProductDemand:
         self.quantity = quantity
         self.price = price
 
-    def total_value(self):
-        """Calculate the total value of the demand."""
-        return self.quantity * self.price
-
-    def __str__(self):
+    def __repr__(self):
         """Return a string representation of the product demand."""
-        return f"SKU: {self.id_sku}, Quantity: {self.quantity}, Price: {self.price}, Total Value: {self.total_value()}"
+        return f"SKU: {self.id_sku}, Quantity: {self.quantity}, Price: {self.price}"
 
 # Example usage:
 demand = ProductDemand("Laptop", 10, 20)
 print(demand)
-print("Total value of demand:", demand.total_value())
