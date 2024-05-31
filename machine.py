@@ -20,11 +20,11 @@ class GlassMaker:
             return timedelta(0)
         last_task = machine_schedule[-1]
         if last_task.id_product != new_task.id_product:
-            return self.setup_times.get(new_task.id_product, timedelta(0))
+            return next((setup.setup_time for setup in self.setup_times if setup.id_sku == new_task.id_product), timedelta(0))
         return timedelta(0)
 
     def insert_task(self, amount_asked: int, product: str, machine: Optional[int], start_date: datetime, duration: timedelta) -> str:
-        new_task = Task(amount_asked, amount_asked, product, machine, start_date, duration)
+        new_task = Task(product, amount_asked, amount_asked, machine, start_date, duration)
         best_machine = None
         best_start_time = None
         min_end_time = datetime.max

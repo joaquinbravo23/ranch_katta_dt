@@ -8,7 +8,3 @@ class ProductSetup:
     def __str__(self):
         """Return a string representation of the product setup."""
         return f"SKU ID: {self.id_sku}, Setup Time: {self.setup_time} hours"
-
-# Example usage:
-setup = ProductSetup("P12345", timedelta(minutes=30))
-print(setup)
