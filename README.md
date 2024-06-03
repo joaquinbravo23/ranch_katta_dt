@@ -1,6 +1,5 @@
 # Fábrica de Recipientes de Vidrio - Problema de Scheduling
 ---
-author:
   - Grisel Porras Franco A00830414
   - Joaquin Bravo Garcia A00830409
   - David Basilio Rodriguez Cortez A00830940
