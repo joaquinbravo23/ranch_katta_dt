@@ -7,10 +7,6 @@ author:
 date: today
 ---
 
-Grisel Porras Franco A00830414
-Joaquin Bravo Garcia	A00830409
-David Basilio Rodriguez Cortez A00830940
-
 ## Descripción del proceso de producción.	
 
 Se define el proceso de producción en una fábrica de recipientes de vidrio, donde los ingredientes se funden en un horno para obtener cristal líquido y posteriormente se vierte la masa del líquido del cristal dentro del molde con la forma del recipiente. El problema de scheduling en esta fábrica implica coordinar de manera óptima las tareas de producción para maximizar la eficiencia, minimizar el tiempo de producción y reducir costos.
