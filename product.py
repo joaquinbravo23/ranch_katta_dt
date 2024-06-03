@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 class Product:
-    def __init__(self, output_product_id: str, input_product_id: str, net_weight: float, weight_unit: str,
+    def __init__(self, input_product_id: str, output_product_id: str, net_weight: float, weight_unit: str,
                  cost: float, production_rate: int, duration: int):
         self.output_product_id = output_product_id
         self.input_product_id = input_product_id
@@ -23,7 +23,3 @@ class Product:
         return (f"Output Product ID: {self.output_product_id}, Input Product ID: {self.input_product_id}, "
                 f"Net Weight: {self.net_weight} {self.weight_unit}, Cost: ${self.cost}, "
                 f"Production Rate: {self.production_rate} units/hour, Duration: {self.duration}")
-
-# Example usage:
-product = Product("OP123", "IP456", 500, "gr", 250.00, 100, 40)
-print(product)

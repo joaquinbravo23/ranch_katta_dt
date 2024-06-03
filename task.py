@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 class Task:
-    def __init__(self, id_product: str, amount: int, amount_asked: int, machine: int, start_date: datetime, duration: timedelta):
+    def __init__(self, id_product: str, amount: int, amount_asked: int, machine: str, start_date: datetime, duration: timedelta):
         self.id_product = id_product
         self.amount = amount
         self.amount_asked = amount_asked

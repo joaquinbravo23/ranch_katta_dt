@@ -7,7 +7,3 @@ class ProductDemand:
     def __repr__(self):
         """Return a string representation of the product demand."""
         return f"SKU: {self.id_sku}, Quantity: {self.quantity}, Price: {self.price}"
-
-# Example usage:
-demand = ProductDemand("Laptop", 10, 20)
-print(demand)
