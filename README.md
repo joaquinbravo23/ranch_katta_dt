@@ -29,7 +29,7 @@ Para la toma de decisiones en el scheduling, se consideran las siguientes reglas
 3. Minimización de tiempos de setup: Optimizar el tiempo de configuración entre tareas para reducir el tiempo de inactividad de las máquinas.
 
 ## Instrucciones de Ejecución
-El programa se ejecuta desde el archivo main.py.
+El programa se ejecuta desde el archivo [main.py](main.py).
 
 ## Librerías Requeridas
 Las librerías necesarias para ejecutar el programa se encuentran en el archivo requirements.txt.
