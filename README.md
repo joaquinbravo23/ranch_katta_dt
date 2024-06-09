@@ -31,5 +31,7 @@ Para la toma de decisiones en el scheduling, se consideran las siguientes reglas
 ## Instrucciones de Ejecución
 El programa se ejecuta desde el archivo [main.py](src/main.py).
 
+![main py - scheduling - Visual Studio Code 2024-06-09 15-10-41](https://github.com/joaquinbravo23/scheduling/assets/103084102/93146056-2051-46ad-9743-0f10bec995ac)
+
 ## Librerías Requeridas
 Las librerías necesarias para ejecutar el programa se encuentran en el archivo requirements.txt.
