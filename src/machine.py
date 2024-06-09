@@ -9,9 +9,9 @@ class GlassMaker:
         self.schedule: List[Task] = []
         self.id_machine = id_machine
         self.setup_times = setup_times
-        self.start_data = datetime(2023, 6, 1, 6, 0)
+        self.start_date = datetime(2023, 6, 1, 6, 0)
         self.end_date = datetime(2023, 6, 1, 20, 0)
-        self.actual_date = self.start_data
+        self.actual_date = self.start_date
         self.melted_glass = 0
 
     def melt_glass(self, product : Product):
@@ -26,7 +26,7 @@ class GlassMaker:
             return timedelta(0)
 
     def can_insert(self, new_task: Task) -> bool:  
-        if new_task.end_date < self.end_date:
+        if self.actual_date < new_task.end_date < self.end_date:
             return True
         else:
             return False

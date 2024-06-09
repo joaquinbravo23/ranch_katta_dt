@@ -13,59 +13,89 @@ class FlowShop:
         self.machines = machines
         self.profit = 0
 
-    def insert_task(self, id_product: str, amount: int, amount_asked: int) -> bool:
+    def insert_task(self, id_product: str, amount: int, amount_asked: int, 
+                    start_date: datetime = datetime.min, id_machine: str = "", verbose: int = 0) -> bool:
         for product in self.products.values():
             if product.output_product_id == id_product:
                 duration = product.duration
-                start_date = datetime.min
-                machine = ""
                 break
-        new_task = Task(id_product, amount, amount_asked, machine, start_date, duration)
+        new_task = Task(id_product, amount, amount_asked, id_machine, start_date, duration)
 
-        for machine in self.machines.values():
-            net_weight = product.net_weight
-            production_rate = product.production_rate
-
-            if machine.melted_glass < net_weight*production_rate:
-                if machine.schedule:
-                    melt_setup_time = machine.setup_times["MeltedGlass"].setup_time
-                    machine.schedule.append(ProductSetup("MeltedGlass", melt_setup_time, machine.actual_date))
-                    machine.actual_date += melt_setup_time
-                
-                machine.melt_glass(self.products["MeltedGlass"])
-                melt_duration = self.products["MeltedGlass"].duration
-                melt_task = Task("MeltedGlass", 1, 1, machine.id_machine, machine.actual_date, melt_duration)
-                machine.schedule.append(melt_task)
-                machine.actual_date += melt_duration
-                self.profit -= self.products["MeltedGlass"].cost
-            
-            setup_time = machine.calculate_setup_time(new_task)
-            new_task.start_date = machine.actual_date + setup_time
-            new_task.end_date = new_task.start_date + duration
-
-            if machine.can_insert(new_task):                
-                if setup_time != timedelta(0):
-                    machine.schedule.append(ProductSetup(id_product, setup_time, machine.actual_date))
-                new_task.machine = machine.id_machine
+        if id_machine:
+            machine = self.machines[id_machine]
+            if machine.can_insert(new_task):
                 machine.schedule.append(new_task)
                 machine.actual_date = new_task.end_date
-                machine.melted_glass -= net_weight*production_rate
                 self.profit += amount * (self.demands[id_product].price - self.products[id_product].cost)
+                if verbose: print("Insertion successful!")
                 return True
+        else:
+            for machine in self.machines.values():
+                net_weight = product.net_weight
+                production_rate = product.production_rate
+
+                if machine.melted_glass < net_weight*production_rate:
+                    if machine.schedule:
+                        melt_setup_time = machine.setup_times["MeltedGlass"].setup_time
+                        machine.schedule.append(ProductSetup("MeltedGlass", melt_setup_time, machine.actual_date))
+                        machine.actual_date += melt_setup_time
+                    
+                    machine.melt_glass(self.products["MeltedGlass"])
+                    melt_duration = self.products["MeltedGlass"].duration
+                    melt_task = Task("MeltedGlass", 1, 1, machine.id_machine, machine.actual_date, melt_duration)
+                    machine.schedule.append(melt_task)
+                    machine.actual_date += melt_duration
+                    self.profit -= self.products["MeltedGlass"].cost
+                
+                setup_time = machine.calculate_setup_time(new_task)
+                new_task.start_date = machine.actual_date + setup_time
+                new_task.end_date = new_task.start_date + duration
+
+                if machine.can_insert(new_task):                
+                    if setup_time != timedelta(0):
+                        machine.schedule.append(ProductSetup(id_product, setup_time, machine.actual_date))
+                    new_task.machine = machine.id_machine
+                    machine.schedule.append(new_task)
+                    machine.actual_date = new_task.end_date
+                    machine.melted_glass -= net_weight*production_rate
+                    self.profit += amount * (self.demands[id_product].price - self.products[id_product].cost)
+                    if verbose: print("Insertion successful!")
+                    return True
+        if verbose: print("Insertion failed!")
         return False
 
-    def delete_task(self, id_product :str) -> bool:
+    def delete_task(self, id_product :str, amount: int = 0, amount_asked: int = 0, 
+                    start_date: datetime = datetime.min, id_machine: str = "", verbose: int = 0) -> bool:
+        
         delete = False
-        for machine in self.machines.values():
-            last_task = machine.schedule[-1]
-            if machine.schedule and last_task.id_product == id_product:
-                machine.schedule.remove(last_task)
-                if isinstance(last_task, Task):
-                    if id_product == "MeltedGlass":
-                        self.profit += self.products[id_product].cost
-                    else:
-                        self.profit -= last_task.amount * (self.demands[id_product].price - self.products[id_product].cost)
+
+        if id_machine:
+            machine = self.machines[id_machine]
+            for product in self.products.values():
+                if product.output_product_id == id_product:
+                    duration = product.duration
+                    break
+            task = Task(id_product, amount, amount_asked, id_machine, start_date, duration)
+            if task in machine.schedule: 
+                machine.schedule.remove(task)
                 delete = True
+
+        else:
+            for machine in self.machines.values():
+                last_task = machine.schedule[-1]
+                if machine.schedule and last_task.id_product == id_product:
+                    machine.schedule.remove(last_task)
+                    if isinstance(last_task, Task):
+                        if id_product == "MeltedGlass":
+                            self.profit += self.products[id_product].cost
+                        else:
+                            self.profit -= last_task.amount * (self.demands[id_product].price - self.products[id_product].cost)
+                    delete = True
+        if verbose: 
+            if delete:
+                print("Deletion successful!")
+            else:
+                print("Deletion failed!")
         return delete
         
     def automated_scheduling(self) -> str:

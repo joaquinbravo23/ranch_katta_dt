@@ -32,8 +32,19 @@ if __name__ == "__main__":
     "M02" :GlassMaker("M02", setup_times),
     }
 
-    flowshop = FlowShop(products=products,
-                        demands=demands,
-                        machines=machines)
+    manual_flowshop = FlowShop(products=products,
+                            demands=demands,
+                            machines=machines)
     
-    print(flowshop.automated_scheduling())
+    # manual_flowshop.insert_task("GlassA", 100, 100, start_date = datetime(2023, 6, 1, 8, 15), id_machine = "M01", verbose = 1)
+    # manual_flowshop.insert_task("GlassA", 100, 100, start_date = datetime(2023, 6, 1, 10, 30), id_machine = "M01", verbose = 1)
+    # print(manual_flowshop.get_schedule())
+
+    # manual_flowshop.delete_task("GlassA", 100, 100, start_date = datetime(2023, 6, 1, 8, 15), id_machine = "M01", verbose = 1)
+    # print(manual_flowshop.get_schedule())
+
+    auto_flowshop = FlowShop(products=products,
+                            demands=demands,
+                            machines=machines)
+    
+    print(auto_flowshop.automated_scheduling())
